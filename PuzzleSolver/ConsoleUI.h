@@ -1,3 +1,4 @@
+// ConsoleUI.h
 #ifndef CONSOLE_UI_H
 #define CONSOLE_UI_H
 
@@ -8,7 +9,8 @@ private:
     PuzzleSolver* solver;  // Вказівник на об'єкт PuzzleSolver
     
     // Приватні методи
-    void loadExample();    // Завантаження прикладу головоломки
+    void loadExample();    // Завантаження основного завдання (12×12)
+    void loadSimpleExample(); // Завантаження прикладу головоломки (8×8)
     void manualInput();    // Ручне введення даних
     
 public:
@@ -21,4 +23,5 @@ public:
     void handleInput();    // Обробка введення користувача
     void displayResult();  // Відображення результату
 };
-#endif
+
+#endif // CONSOLE_UI_H
