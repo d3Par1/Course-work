@@ -65,9 +65,7 @@ public:
             }
             else
             {
-                // For double digits, reduce the trailing space to keep alignment
-                cout << " " << colNum; // Double digit needs less padding
-                cout << " ";
+                cout << colNum << "  "; // Double digit (3 chars total)
             }
         }
         cout << "\n";
@@ -177,18 +175,18 @@ public:
     // Draw the solution with line characters
     void drawSolution()
     {
-        // Print column numbers
+        // Print column numbers with consistent spacing
         cout << "\n   ";
         for (int c = 0; c < cols; c++)
         {
             int colNum = c + 1;
             if (colNum < 10)
             {
-                cout << " " << colNum << " "; // Single digit with proper spacing (3 chars total)
+                cout << " " << colNum << " "; // Single digit (3 chars total)
             }
             else
             {
-                cout << " " << colNum << " "; // Double digit with proper spacing (4 chars total)
+                cout << colNum << "  "; // Double digit (3 chars total)
             }
         }
         cout << "\n";
