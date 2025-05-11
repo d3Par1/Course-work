@@ -13,7 +13,7 @@ Creates and visualizes a grid-based puzzle board
 Connects matching symbols with paths using BFS algorithm
 Prevents 2x2 block formations (puzzle constraint)
 Renders beautiful console-based UI with Unicode box-drawing characters
-<img alt="Numberlink Example" src="https://via.placeholder.com/600x300?text=Numberlink+Puzzle+Solver">
+<img alt="Numberlink Example" src="https://en.wikipedia.org/wiki/Numberlink">
 🚀 Getting Started
 Prerequisites
 C++ compiler (C++11 or newer)
