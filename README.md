@@ -1,86 +1,58 @@
-# Course Work (C++)
+🎓 Course Work (C++)
+<img alt="C++" src="https://img.shields.io/badge/C++-17-blue.svg">
+<img alt="License" src="https://img.shields.io/badge/license-Unlicense-green.svg">
+<img alt="Status" src="https://img.shields.io/badge/status-active-brightgreen.svg">
+📋 Overview
+Welcome to the Course Work repository! This collection showcases various C++ programming projects developed during coursework. The repository demonstrates a progression in learning C++ concepts through practical implementations.
 
-Welcome to the **Course Work** repository! This repository showcases projects and assignments completed as part of a C++ programming course. It serves as a learning journey, demonstrating various concepts and techniques in C++ programming.
+🧩 Featured Projects
+Numberlink Puzzle Solver
+A sophisticated implementation of a Numberlink puzzle solver that:
 
----
+Creates and visualizes a grid-based puzzle board
+Connects matching symbols with paths using BFS algorithm
+Prevents 2x2 block formations (puzzle constraint)
+Renders beautiful console-based UI with Unicode box-drawing characters
+<img alt="Numberlink Example" src="https://via.placeholder.com/600x300?text=Numberlink+Puzzle+Solver">
+🚀 Getting Started
+Prerequisites
+C++ compiler (C++11 or newer)
+Basic command line knowledge
+Installation
+Clone the repository:
 
-## Table of Contents
+Navigate to the project directory:
 
-1. [Introduction](#introduction)
-2. [Features](#features)
-3. [Setup and Usage](#setup-and-usage)
-4. [Project Structure](#project-structure)
-5. [Technologies Used](#technologies-used)
-6. [Future Work](#future-work)
-7. [Contributing](#contributing)
-8. [License](#license)
+Compile the code:
 
----
+Run the application:
 
-## Introduction
+💻 Code Structure
+The codebase follows object-oriented design principles:
 
-This repository contains course-related work, focusing on C++ programming fundamentals and advanced concepts. The projects range from simple exercises to more complex implementations that demonstrate object-oriented programming, data structures, algorithms, and more.
+Class/Component	Description
+Cell	Basic unit of the puzzle grid with symbol, value, and visited state
+NumberlinkSolver	Main solver class with grid management and path-finding algorithms
+findPath()	BFS implementation for creating symbol-connecting paths
+drawSolution()	Renders the completed puzzle with proper connections
+🔍 Implementation Details
+The Numberlink solver employs these key algorithms and data structures:
 
----
+Breadth-First Search (BFS) for pathfinding between matching symbols
+2x2 Pattern Detection to satisfy puzzle constraints
+Unicode Box-Drawing for aesthetically pleasing visualization
+STL Containers like vectors, maps and queues for efficient data management
+🛠️ Future Improvements
+<input disabled="" type="checkbox"> Add ability to load puzzles from files
+<input disabled="" type="checkbox"> Implement backtracking for puzzles with multiple solutions
+<input disabled="" type="checkbox"> Create a graphical user interface
+<input disabled="" type="checkbox"> Add more puzzle types beyond Numberlink
+📄 License
+This project is licensed under the Unlicense - see the LICENSE file for details.
 
-## Features
-
-- **Comprehensive Examples**: Covers basic syntax, functions, classes, and more.
-- **Advanced Concepts**: Includes topics such as pointers, templates, and file handling.
-- **Well-Documented Code**: Each project contains detailed comments explaining the logic.
-- **Modular Design**: Projects are organized for easy navigation and reuse.
-
----
-
-## Setup and Usage
-
-To use the code in this repository:
-
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/d3Par1/Course-work.git
-    ```
-2. Navigate to the desired project directory:
-    ```bash
-    cd Course-work/<project-directory>
-    ```
-3. Compile and run the program (example for `g++`):
-    ```bash
-    g++ main.cpp -o main
-    ./main
-    ```
-
----
-
-## Project Structure
-Класи:
-1. Game - основний клас, який керує грою
-   - методи для ініціалізації, запуску, завершення гри
-   - управління меню
-
-2. Board - клас для представлення ігрового поля
-   - двовимірний масив клітин
-   - методи для відображення, перевірки стану
-
-3. Cell - клас для представлення клітини
-   - вміст (символ)
-   - стан (пуста, зайнята лінією, початкова/кінцева)
-
-4. Symbol - клас для представлення символів на дошці
-   - тип (літера/цифра)
-   - значення
-   - координати
-
-5. Line - клас для представлення лінії між символами
-   - початкова і кінцева точка
-   - проміжні точки шляху
-   - методи для перевірки валідності
-
-6. Solver - клас для автоматичного вирішення головоломки
-   - алгоритм пошуку з поверненням
-   - евристики для оптимізації
-
-7. UserInterface - клас для взаємодії з користувачем
-   - введення/виведення даних
-   - відображення меню
-   - графічне представлення результатів
+📊 Technologies Used
+C++ Standard Library
+Object-Oriented Programming
+BFS Path-finding Algorithm
+Console-based UI Rendering
+<p align="center"> Made with ❤️ by a passionate C++ programmer </p>
