@@ -1,5 +1,14 @@
 # 🎓 Course Work (C++)
 
+```
+   ____  _     _      ____                          __        __         _
+  / ___|| |__ | | __ |  _ \ _ __ ___   __ _ _ __ / _|_ __ / _| ___  | | |
+ | |    | '_ \| |/ / | |_) | '__/ _ \ / _` | '_ \| |_| '__| |_ / _ \ | | |
+ | |___ | | | |   <  |  __/| | | (_) | (_| | | | |  _| |  |  _| (_) || |_|
+  \____||_| |_|_|\_\ |_|   |_|  \___/ \__, |_| |_|_| |_|  |_|  \___/ |_(_)
+                                      |___/
+```
+
 ![C++](https://img.shields.io/badge/C%2B%2B-17-blue.svg)
 ![License](https://img.shields.io/badge/license-Unlicense-green.svg)
 ![Status](https://img.shields.io/badge/status-active-brightgreen.svg)
@@ -19,7 +28,19 @@ A sophisticated implementation of a [Numberlink](https://en.wikipedia.org/wiki/N
 - Prevents 2x2 block formations (puzzle constraint)
 - Renders beautiful console-based UI with Unicode box-drawing characters
 
-![Numberlink Example](https://via.placeholder.com/600x300?text=Numberlink+Puzzle+Solver)
+```
+┌───┬───┬───┬───┬───┐
+│ 1 │   │   │   │ 2 │
+├───┼───┼───┼───┼───┤
+│ ━ │ ━ │ ━ │ ━ │ ┃ │
+├───┼───┼───┼───┼───┤
+│ 3 │   │   │   │ ┃ │
+├───┼───┼───┼───┼───┤
+│ ┃ │ ━ │ ━ │ ━ │ ┃ │
+├───┼───┼───┼───┼───┤
+│ ┃ │ 4 │   │   │ 2 │
+└───┴───┴───┴───┴───┘
+```
 
 ## 🚀 Getting Started
 
@@ -42,10 +63,10 @@ A sophisticated implementation of a [Numberlink](https://en.wikipedia.org/wiki/N
    cd Course-work/PuzzleSolver
    ```
 
-3. Compile the code:
+3. Compile the code with warnings enabled:
 
    ```bash
-   g++ numberlink.cpp -o numberlink
+   g++ -Wall numberlink.cpp -o numberlink
    ```
 
 4. Run the application:
@@ -55,38 +76,72 @@ A sophisticated implementation of a [Numberlink](https://en.wikipedia.org/wiki/N
 
 ## 💻 Code Structure
 
-The codebase follows object-oriented design principles:
+The codebase follows object-oriented design principles with robust error handling and algorithmic optimizations:
 
-| Class/Component    | Description                                                         |
-| ------------------ | ------------------------------------------------------------------- |
-| `Cell`             | Basic unit of the puzzle grid with symbol, value, and visited state |
-| `NumberlinkSolver` | Main solver class with grid management and path-finding algorithms  |
-| `findPath()`       | BFS implementation for creating symbol-connecting paths             |
-| `drawSolution()`   | Renders the completed puzzle with proper connections                |
+### Core Components
 
-## 🔍 Implementation Details
+| Class/Component    | Description                                                                      |
+| ------------------ | -------------------------------------------------------------------------------- |
+| `Cell`             | Basic unit of the puzzle grid with symbol, value, and visited state              |
+| `Grid`             | Container for cells with operations for accessing and modifying the puzzle board |
+| `NumberlinkSolver` | Main solver class with grid management and path-finding algorithms               |
+| `PuzzleValidator`  | Ensures puzzle has a valid configuration before solving                          |
+| `SolutionRenderer` | Handles UI rendering with different output modes (text, Unicode)                 |
 
-The Numberlink solver employs these key algorithms and data structures:
-
-- **Breadth-First Search (BFS)** for pathfinding between matching symbols
-- **2x2 Pattern Detection** to satisfy puzzle constraints
-- **Unicode Box-Drawing** for aesthetically pleasing visualization
-- **STL Containers** like vectors, maps and queues for efficient data management
+### Key Algorithms
 
 ```cpp
-void findPath(pair<int, int> start, pair<int, int> end, int value) {
-    // BFS implementation with queue
-    // Avoids creating 2x2 blocks of the same value
+// Breadth-First Search implementation for path finding
+std::vector<std::pair<int, int>> NumberlinkSolver::findPath(
+    std::pair<int, int> start,
+    std::pair<int, int> end,
+    int value)
+{
+    std::queue<std::pair<int, int>> bfsQueue;
+    std::map<std::pair<int, int>, std::pair<int, int>> parent;
+    std::vector<std::vector<bool>> visited(height, std::vector<bool>(width, false));
+
+    // BFS algorithm implementation
     // ...
+
+    // Path reconstruction from parent map
+    // ...
+
+    return path;
 }
 ```
 
-## 🛠️ Future Improvements
+```cpp
+// Checks if placing a value would create an invalid 2x2 pattern
+bool NumberlinkSolver::creates2x2Pattern(int row, int col, int value) {
+    // Check neighboring cells in 2x2 formations
+    // ...
+    return false;
+}
+```
 
-- [ ] Add ability to load puzzles from files
-- [ ] Implement backtracking for puzzles with multiple solutions
-- [ ] Create a graphical user interface
-- [ ] Add more puzzle types beyond Numberlink
+### Data Structures
+
+- **Grid Representation**: 2D vector of `Cell` objects
+- **Path Storage**: Vectors of coordinate pairs
+- **State Management**: Maps for tracking symbol locations and completed paths
+- **BFS Implementation**: Queue for frontier cells with map for parent tracking
+
+### Class Relationships
+
+```
+┌───────────────┐     ┌───────────┐     ┌─────────────────┐
+│ NumberlinkGame │────▶│   Grid    │────▶│      Cell       │
+└───────┬───────┘     └───────────┘     └─────────────────┘
+        │                    ▲
+        │                    │
+        ▼                    │
+┌───────────────┐     ┌─────────────┐    ┌─────────────────┐
+│NumberlinkSolver│────▶│PuzzleValidator│  │SolutionRenderer │
+└───────┬───────┘     └─────────────┘    └─────────────────┘
+        │                                          ▲
+        └──────────────────────────────────────────┘
+```
 
 ## 📄 License
 
