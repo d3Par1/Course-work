@@ -24,7 +24,6 @@
 ╚═══════════════════════════════════════════════════════════════╝
 ```
 
-
 ![C++](https://img.shields.io/badge/C%2B%2B-17-blue.svg)
 ![License](https://img.shields.io/badge/license-Unlicense-green.svg)
 ![Status](https://img.shields.io/badge/status-active-brightgreen.svg)
@@ -35,34 +34,22 @@ Welcome to the **Course Work** repository! This collection showcases various C++
 
 ## 🧩 Featured Projects
 
-### Numberlink Puzzle Solver
+### Letterlink Puzzle Solver
 
-A sophisticated implementation of a [Numberlink](https://en.wikipedia.org/wiki/Numberlink) puzzle solver that:
+A sophisticated implementation of a [Numberlink](https://en.wikipedia.org/wiki/Numberlink)-style puzzle solver that uses letters instead of numbers:
 
-- Creates and visualizes a grid-based puzzle board
-- Connects matching symbols with paths using BFS algorithm
+- Creates and visualizes a 13x13 grid-based puzzle board
+- Connects matching letter symbols with paths using BFS algorithm
 - Prevents 2x2 block formations (puzzle constraint)
-- Renders beautiful console-based UI with Unicode box-drawing characters
-
-```
-┌───┬───┬───┬───┬───┐
-│ 1 │   │   │ 1 │ 2 │
-├───┼───┼───┼───┼───┤
-│ ━ │ ━ │ ━ │ ┘ │ ┃ │
-├───┼───┼───┼───┼───┤
-│ 3 │   │   │ 3 │ ┃ │
-├───┼───┼───┼───┼───┤
-│ ┃ │ ━ │ ━ │ ┘ │ ┃ │
-├───┼───┼───┼───┼───┤
-│   │ 4 │ ━ │ 4 │ 2 │
-└───┴───┴───┴───┴───┘
-```
+- Features a special highlighted diagonal spelling "COLOGNE"
+- Renders beautiful colored console-based UI with Unicode box-drawing characters
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
 - C++ compiler (C++11 or newer)
+- Terminal with ANSI color support for best visual experience
 - Basic command line knowledge
 
 ### Installation
@@ -96,79 +83,70 @@ The codebase follows object-oriented design principles with robust error handlin
 
 ### Core Components
 
-| Class/Component    | Description                                                                      |
-| ------------------ | -------------------------------------------------------------------------------- |
-| `Cell`             | Basic unit of the puzzle grid with symbol, value, and visited state              |
-| `Grid`             | Container for cells with operations for accessing and modifying the puzzle board |
-| `NumberlinkSolver` | Main solver class with grid management and path-finding algorithms               |
-| `PuzzleValidator`  | Ensures puzzle has a valid configuration before solving                          |
-| `SolutionRenderer` | Handles UI rendering with different output modes (text, Unicode)                 |
+| Component          | Description                                                                         |
+| ------------------ | ----------------------------------------------------------------------------------- |
+| `Cell`             | Basic unit struct of the puzzle grid with symbol, value, and visited state          |
+| `NumberlinkSolver` | Main solver class with grid management, path-finding algorithms and rendering logic |
 
 ### Key Algorithms
 
 ```cpp
 // Breadth-First Search implementation for path finding
-std::vector<std::pair<int, int>> NumberlinkSolver::findPath(
+void NumberlinkSolver::findPath(
     std::pair<int, int> start,
     std::pair<int, int> end,
     int value)
 {
-    std::queue<std::pair<int, int>> bfsQueue;
-    std::map<std::pair<int, int>, std::pair<int, int>> parent;
-    std::vector<std::vector<bool>> visited(height, std::vector<bool>(width, false));
+    // Simple BFS path finding that avoids 2x2 squares
+    vector<vector<bool>> visited(rows, vector<bool>(cols, false));
+    vector<vector<pair<int, int>>> parent(rows, vector<pair<int, int>>(cols, {-1, -1}));
+    queue<pair<int, int>> q;
 
     // BFS algorithm implementation
     // ...
 
-    // Path reconstruction from parent map
+    // Path reconstruction
     // ...
-
-    return path;
 }
 ```
 
 ```cpp
 // Checks if placing a value would create an invalid 2x2 pattern
-bool NumberlinkSolver::creates2x2Pattern(int row, int col, int value) {
-    // Check neighboring cells in 2x2 formations
+bool NumberlinkSolver::wouldCreate2x2(int r1, int c1, int r2, int c2, int value)
+{
+    // Check if adding a path segment would create a 2x2 block
+    // Temporarily mark both cells with the value
+    // Check all possible 2x2 blocks that could include both cells
     // ...
-    return false;
+
+    return creates2x2;
 }
 ```
+
+### Special Features
+
+- **COLOGNE Diagonal**: Special highlighting for the letters C, O, L, O, G, N, E arranged diagonally
+- **ANSI Color Coding**: Different path colors for easy visual distinction
+- **Enhanced Path Characters**: Special Unicode box-drawing characters to show path connections, corners, and junctions
 
 ### Data Structures
 
 - **Grid Representation**: 2D vector of `Cell` objects
-- **Path Storage**: Vectors of coordinate pairs
-- **State Management**: Maps for tracking symbol locations and completed paths
-- **BFS Implementation**: Queue for frontier cells with map for parent tracking
-
-### Class Relationships
-
-```
-┌───────────────┐     ┌───────────┐     ┌─────────────────┐
-│ NumberlinkGame│───▶│   Grid     │───▶│      Cell       │
-└───────┬───────┘     └───────────┘     └─────────────────┘
-        │                    ▲
-        │                    │
-        ▼                    │
-┌───────────────┐     ┌─────────────┐    ┌─────────────────┐
-│NumberlinkSolver│──▶│PuzzleValidator│   │SolutionRenderer │
-└───────┬───────┘     └─────────────┘    └─────────────────┘
-        │                                          ▲
-        └──────────────────────────────────────────┘
-```
+- **Symbol Positions**: Map of character to vector of coordinate pairs
+- **Path Storage**: Parent tracking in 2D vector for path reconstruction
+- **BFS Implementation**: Queue for frontier cells with visited tracking
 
 ## 📄 License
 
-This project is licensed under the Unlicense - see the `LICENSE` file for details.
+This project is licensed under the Unlicense - see the [`LICENSE`](LICENSE) file for details.
 
 ## 📊 Technologies Used
 
 - C++ Standard Library
 - Object-Oriented Programming
 - BFS Path-finding Algorithm
-- Console-based UI Rendering
+- ANSI Color Terminal Output
+- Unicode Box-Drawing Characters
 
 ---
 
