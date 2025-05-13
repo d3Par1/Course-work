@@ -6,7 +6,6 @@
 #include <utility>
 using namespace std;
 
-// Cell structure - simplified
 struct Cell
 {
     char symbol;  // Letter symbol (or space for empty)
