@@ -54,23 +54,13 @@ public:
     // Print the current grid state
     void printGrid()
     {
-        // Print column numbers - fixed alignment
-        cout << "\n   ";
-        for (int c = 0; c < cols; c++)
-        {
-            int colNum = c + 1;
-            if (colNum < 10)
-            {
-                cout << " " << colNum << " "; // Single digit (3 chars total)
-            }
-            else
-            {
-                cout << colNum << "  "; // Double digit (3 chars total)
-            }
-        }
-        cout << "\n";
+        // Print title
+        cout << "\n╔═══════════════════════════╗" << endl;
+        cout << "║     NUMBERLINK PUZZLE     ║" << endl;
+        cout << "╚═══════════════════════════╝" << endl
+             << endl;
 
-        // Top border
+        // Top border (removed column numbers)
         cout << "   ┌";
         for (int c = 0; c < cols; c++)
         {
@@ -81,36 +71,31 @@ public:
 
         for (int r = 0; r < rows; r++)
         {
-            int rowNum = r + 1;
-            if (rowNum < 10)
-            {
-                cout << " " << rowNum << " │"; // Single digit
-            }
-            else
-            {
-                cout << rowNum << " │"; // Double digit
-            }
+            // Removed row numbers, just show border
+            cout << "   │";
+
             for (int c = 0; c < cols; c++)
             {
                 if (grid[r][c].symbol != ' ')
                 {
-                    // Only bold the specific positions forming the diagonal COLOGNE word
+                    // Check if part of COLOGNE diagonal
                     bool isCologneWord =
-                        (r == 3 && c == 3 && grid[r][c].symbol == 'C') || // C at (4,4) in 1-indexed
-                        (r == 4 && c == 4 && grid[r][c].symbol == 'O') || // O at (5,5)
-                        (r == 5 && c == 5 && grid[r][c].symbol == 'L') || // L at (6,6)
-                        (r == 6 && c == 6 && grid[r][c].symbol == 'O') || // O at (7,7)
-                        (r == 7 && c == 7 && grid[r][c].symbol == 'G') || // G at (8,8)
-                        (r == 8 && c == 8 && grid[r][c].symbol == 'N') || // N at (9,9)
-                        (r == 9 && c == 9 && grid[r][c].symbol == 'E');   // E at (10,10)
+                        (r == 3 && c == 3 && grid[r][c].symbol == 'C') ||
+                        (r == 4 && c == 4 && grid[r][c].symbol == 'O') ||
+                        (r == 5 && c == 5 && grid[r][c].symbol == 'L') ||
+                        (r == 6 && c == 6 && grid[r][c].symbol == 'O') ||
+                        (r == 7 && c == 7 && grid[r][c].symbol == 'G') ||
+                        (r == 8 && c == 8 && grid[r][c].symbol == 'N') ||
+                        (r == 9 && c == 9 && grid[r][c].symbol == 'E');
 
                     if (isCologneWord)
                     {
-                        cout << " \033[1m" << grid[r][c].symbol << "\033[0m ";
+                        // Bold and highlight COLOGNE letters
+                        cout << " \033[1;33m" << grid[r][c].symbol << "\033[0m ";
                     }
                     else
                     {
-                        cout << " " << grid[r][c].symbol << " ";
+                        cout << " \033[1m" << grid[r][c].symbol << "\033[0m ";
                     }
                 }
                 else if (grid[r][c].value > 0)
@@ -121,14 +106,14 @@ public:
                 {
                     cout << "   ";
                 }
-                cout << (c < cols - 1 ? "│" : "│");
+                cout << "│";
             }
             cout << "\n";
 
             // Row separator
             if (r < rows - 1)
             {
-                cout << "  ├";
+                cout << "   ├";
                 for (int c = 0; c < cols; c++)
                 {
                     cout << "───";
@@ -139,13 +124,18 @@ public:
         }
 
         // Bottom border
-        cout << "  └";
+        cout << "   └";
         for (int c = 0; c < cols; c++)
         {
             cout << "───";
             cout << (c < cols - 1 ? "┴" : "┘");
         }
-        cout << "\n";
+        cout << "\n\n";
+
+        // Add instructions
+        cout << "Goal: Connect matching letters with non-intersecting paths" << endl;
+        cout << "The word \"COLOGNE\" is highlighted on the diagonal" << endl
+             << endl;
     }
 
     // Solve the puzzle
@@ -175,23 +165,31 @@ public:
     // Draw the solution with line characters
     void drawSolution()
     {
-        // Print column numbers with consistent spacing
-        cout << "\n   ";
-        for (int c = 0; c < cols; c++)
-        {
-            int colNum = c + 1;
-            if (colNum < 10)
-            {
-                cout << " " << colNum << " "; // Single digit (3 chars total)
-            }
-            else
-            {
-                cout << colNum << "  "; // Double digit (3 chars total)
-            }
-        }
-        cout << "\n";
+        // Use ANSI color codes for different paths
+        vector<string> colors = {
+            "\033[38;5;196m", // Red
+            "\033[38;5;46m",  // Green
+            "\033[38;5;21m",  // Blue
+            "\033[38;5;208m", // Orange
+            "\033[38;5;129m", // Purple
+            "\033[38;5;214m", // Yellow
+            "\033[38;5;51m",  // Cyan
+            "\033[38;5;201m", // Magenta
+            "\033[38;5;226m", // Bright Yellow
+            "\033[38;5;82m",  // Bright Green
+            "\033[38;5;197m", // Pink
+            "\033[38;5;33m",  // Light Blue
+            "\033[38;5;202m"  // Deep Orange
+        };
+        string resetColor = "\033[0m";
 
-        // Top border
+        // Print title
+        cout << "\n╔════════════════════════════╗" << endl;
+        cout << "║     NUMBERLINK SOLUTION    ║" << endl;
+        cout << "╚════════════════════════════╝" << endl
+             << endl;
+
+        // Top border (removed column numbers)
         cout << "   ┌";
         for (int c = 0; c < cols; c++)
         {
@@ -203,59 +201,67 @@ public:
         // Grid cells
         for (int r = 0; r < rows; r++)
         {
-            int rowNum = r + 1;
-            if (rowNum < 10)
-            {
-                cout << " " << rowNum << " │"; // Single digit
-            }
-            else
-            {
-                cout << rowNum << " │"; // Double digit
-            }
+            // Removed row number, just show border
+            cout << "   │";
 
             for (int c = 0; c < cols; c++)
             {
+                // Get color for this cell's value
+                string cellColor = "";
+                if (grid[r][c].value > 0)
+                {
+                    int colorIdx = (grid[r][c].value - 1) % colors.size();
+                    cellColor = colors[colorIdx];
+                }
+
                 // Cell content
                 if (grid[r][c].symbol != ' ')
                 {
-                    // Only bold the specific positions forming the diagonal COLOGNE word
+                    // For symbol cells, check if it's part of the COLOGNE word
                     bool isCologneWord =
-                        (r == 3 && c == 3 && grid[r][c].symbol == 'C') || // C at (4,4) in 1-indexed
-                        (r == 4 && c == 4 && grid[r][c].symbol == 'O') || // O at (5,5)
-                        (r == 5 && c == 5 && grid[r][c].symbol == 'L') || // L at (6,6)
-                        (r == 6 && c == 6 && grid[r][c].symbol == 'O') || // O at (7,7)
-                        (r == 7 && c == 7 && grid[r][c].symbol == 'G') || // G at (8,8)
-                        (r == 8 && c == 8 && grid[r][c].symbol == 'N') || // N at (9,9)
-                        (r == 9 && c == 9 && grid[r][c].symbol == 'E');   // E at (10,10)
+                        (r == 3 && c == 3 && grid[r][c].symbol == 'C') ||
+                        (r == 4 && c == 4 && grid[r][c].symbol == 'O') ||
+                        (r == 5 && c == 5 && grid[r][c].symbol == 'L') ||
+                        (r == 6 && c == 6 && grid[r][c].symbol == 'O') ||
+                        (r == 7 && c == 7 && grid[r][c].symbol == 'G') ||
+                        (r == 8 && c == 8 && grid[r][c].symbol == 'N') ||
+                        (r == 9 && c == 9 && grid[r][c].symbol == 'E');
 
+                    // Print symbol with color and bold if needed
+                    cout << cellColor << " ";
                     if (isCologneWord)
                     {
-                        cout << " \033[1m" << grid[r][c].symbol << "\033[0m ";
+                        cout << "\033[1m" << grid[r][c].symbol << "\033[0m";
                     }
                     else
                     {
-                        cout << " " << grid[r][c].symbol << " ";
+                        cout << grid[r][c].symbol;
                     }
+                    cout << " " << resetColor;
                 }
                 else
                 {
-                    // Show path characters based on connections
-                    drawPathChar(r, c);
+                    // Show path characters based on connections with color
+                    cout << cellColor;
+                    drawEnhancedPathChar(r, c);
+                    cout << resetColor;
                 }
-                cout << (c < cols - 1 ? "│" : "│");
+                cout << "│";
             }
             cout << "\n";
 
-            // Row separator
+            // Row separator (if not the last row)
             if (r < rows - 1)
             {
-                cout << "  ├";
+                cout << "   ├";
                 for (int c = 0; c < cols; c++)
                 {
-                    // Check if connected to cell below
+                    // Colorize vertical connections
                     if (isConnected(r, c, r + 1, c))
                     {
-                        cout << " ║ ";
+                        int colorIdx = (grid[r][c].value - 1) % colors.size();
+                        string cellColor = colors[colorIdx];
+                        cout << cellColor << "─║─" << resetColor;
                     }
                     else
                     {
@@ -268,13 +274,22 @@ public:
         }
 
         // Bottom border
-        cout << "  └";
+        cout << "   └";
         for (int c = 0; c < cols; c++)
         {
             cout << "───";
             cout << (c < cols - 1 ? "┴" : "┘");
         }
-        cout << "\n";
+        cout << "\n\n";
+
+        // Add a legend for the symbols used
+        cout << "LEGEND:" << endl;
+        for (const auto &pair : symbolValues)
+        {
+            int colorIdx = (pair.second - 1) % colors.size();
+            cout << colors[colorIdx] << " " << pair.first << " " << resetColor << "- Path " << pair.second << endl;
+        }
+        cout << endl;
     }
 
 private:
@@ -478,6 +493,78 @@ private:
         {
             // For other cases, use a different character
             cout << " ● "; // Changed from · to ●
+        }
+    }
+
+    // Add this new helper method for enhanced path visualization
+    void drawEnhancedPathChar(int r, int c)
+    {
+        // Skip if not part of a path
+        if (grid[r][c].value == 0)
+        {
+            cout << "   ";
+            return;
+        }
+
+        // Check which directions are connected
+        bool conn[4] = {false, false, false, false}; // up, right, down, left
+        for (int d = 0; d < 4; d++)
+        {
+            int nr = r + dr[d];
+            int nc = c + dc[d];
+            conn[d] = isConnected(r, c, nr, nc);
+        }
+
+        // Draw appropriate character based on connections
+        if (conn[0] && conn[2] && !conn[1] && !conn[3])
+        {
+            cout << " ║ "; // Vertical line
+        }
+        else if (!conn[0] && !conn[2] && conn[1] && conn[3])
+        {
+            cout << "═══"; // Horizontal line
+        }
+        else if (conn[0] && !conn[2] && conn[1] && !conn[3])
+        {
+            cout << " ╚═"; // Bottom-right corner
+        }
+        else if (conn[0] && !conn[2] && !conn[1] && conn[3])
+        {
+            cout << "═╝ "; // Bottom-left corner
+        }
+        else if (!conn[0] && conn[2] && conn[1] && !conn[3])
+        {
+            cout << " ╔═"; // Top-right corner
+        }
+        else if (!conn[0] && conn[2] && !conn[1] && conn[3])
+        {
+            cout << "═╗ "; // Top-left corner
+        }
+        // Handle crossings and T-junctions
+        else if (conn[0] && conn[1] && conn[2] && conn[3])
+        {
+            cout << "═╬═"; // 4-way crossing
+        }
+        else if (!conn[0] && conn[1] && conn[2] && conn[3])
+        {
+            cout << "═╦═"; // T-junction (missing up)
+        }
+        else if (conn[0] && !conn[1] && conn[2] && conn[3])
+        {
+            cout << "═╣ "; // T-junction (missing right)
+        }
+        else if (conn[0] && conn[1] && !conn[2] && conn[3])
+        {
+            cout << "═╩═"; // T-junction (missing down)
+        }
+        else if (conn[0] && conn[1] && conn[2] && !conn[3])
+        {
+            cout << " ╠═"; // T-junction (missing left)
+        }
+        else
+        {
+            // For other cases or endpoints
+            cout << " ● ";
         }
     }
 };
