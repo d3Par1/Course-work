@@ -32,18 +32,6 @@
 
 Welcome to the **Course Work** repository! This collection showcases various C++ programming projects developed during coursework. The repository demonstrates a progression in learning C++ concepts through practical implementations.
 
-## 🧩 Featured Projects
-
-### Letterlink Puzzle Solver
-
-A sophisticated implementation of a [Numberlink](https://en.wikipedia.org/wiki/Numberlink)-style puzzle solver that uses letters instead of numbers:
-
-- Creates and visualizes a 13x13 grid-based puzzle board
-- Connects matching letter symbols with paths using BFS algorithm
-- Prevents 2x2 block formations (puzzle constraint)
-- Features a special highlighted diagonal spelling "COLOGNE"
-- Renders beautiful colored console-based UI with Unicode box-drawing characters
-
 ## 🚀 Getting Started
 
 ### Prerequisites
